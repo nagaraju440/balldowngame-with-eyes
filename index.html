@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1 id="demo" style="position: absolute;top: 50%;left: 35%;z-index: 1;color: white;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"></h1>
+    <!-- <img src="./eat.png"> -->
+    <!-- <div>hello world</div> -->
+    <h2 style="position: absolute;left: 15%;top: 50% ;" id="score"> score:0</h2>
+    <canvas id="canvas" style="background-color: rgb(8, 8, 8);margin-left: 500px;"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"> </script>
+    <video class="input_video" style="display: none;"></video>
+    <canvas class="output_canvas" width="500px" height="420px"  style="display: none;"></canvas>
+  </div>
+  <!-- <script type="module">
+  
+    </script> -->
+<script src="balldown.js"></script>
+
+</body>
+
+</html>
