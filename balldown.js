@@ -1,3 +1,9 @@
+
+
+
+
+
+
 var canvas=document.getElementById('canvas');
 var c=canvas.getContext('2d');
 canvas.width=400;
@@ -158,11 +164,11 @@ this.updown=function(w){
     }
 }
 this.left=function(){
-    this.da=-scale*1;
+    this.da=-scale*2;
 
 } 
 this.right=function(){
-    this.da=scale*1;
+    this.da=scale*2;
 }
 this.normal=function(){
     this.da=0;
@@ -296,21 +302,48 @@ function onResults(results) {
         var lvd=EuclideanDistance(lu,ld);
         var rRatio=rhd/rvd;
         var lRatio=lhd/lvd;
+        // console.log(lvd,rvd)
         // var ratio=(rRatio+lRatio)/2;
-         if(lRatio>7 && rRatio>7){
-        // console.log("lration is",lRatio)
-        // console.log("r ratio is",rRatio)
-        if(lRatio>rRatio){
-            ball.left()
-        }else{
-            ball.right()
-        }
-        // ball.left()
+        ////////////////////one stratagy///////////////////////////////////
+        //  if(lRatio>7 && rRatio>7){
+        // // console.log("lration is",lRatio)
+        // // console.log("r ratio is",rRatio)
+        // if(lRatio>rRatio){
+        //     ball.left()
+        // }else{
+        //     ball.right()
+        // }
+        // // ball.left()
 
-         }else{
-               ball.normal()
-        }
-        // console.log("hiii andii")
+        //  }else{
+        //        ball.normal()
+        // }
+
+        // ..........................second stratagy...................................
+    // if(  lvd<9 && rvd>6){
+    //     console.log("going left brooooo")
+    //         ball.left()
+    // }else if(  rvd<6 && lvd>9){
+    //     console.log("going right brooooo")
+    //         ball.right()
+
+    // }else{
+    //     console.log("normal",lvd,rvd)
+    //     ball.normal()
+    // }
+
+    // ...................................third stratagy.....................................
+    // console.log(lRatio,rRatio)
+    if(lRatio>10 && rRatio>5.3 && rRatio<10){
+        console.log("left eye is closing")
+        ball.left()
+    }else  if(rRatio>10 && lRatio>5.3 && lRatio<10){
+        console.log("right eye is closing")
+        ball.right()
+    }else{
+        ball.normal()
+    }
+    //     // console.log("hiii andii")
     //   drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION,
     //                  {color: '#C0C0C070', lineWidth: 1});
     //   drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYE, {color: '#FF3030'});
@@ -345,7 +378,14 @@ const camera = new Camera(videoElement, {
   width: 1280,
   height: 720
 });
-var req;
+
+function hideContainer1(){
+    console.log("clickign")
+    document.getElementById("c1").style.display="none"
+    document.getElementById("c2").style.display="block"
+    var req;
 camera.start().then(()=>{
  req=setInterval(animate1,100)
 });
+
+}

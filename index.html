@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
 <html>
 <head>
   <meta charset="utf-8">
@@ -6,20 +6,46 @@
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
-  <div class="container">
+  <div>
+    <div class="container1" id="c1" >
+         <div class="card">
+           <div class="about-game-container">
+              <div class="about-text">About Game : </div>
+              <div class="about-description">
+                The game consists of a ball and rectangular slabs, 
+                which we will use to play the game. When the ball reaches 
+                the top of the window or the bottom of the window, the game is over.
+              </div>
+           </div>
+           <div class="how-container" >
+            <div class="how-text">How to Play ? </div>
+            <div class="how-description">
+              This is a game that we must play with our eyes. To move the ball to the left side, close and hold the left 
+              eye for the desired distance, to move the ball to the right side,
+               close and hold the right eye for the desired distance. how far you want to travel
+            </div>
+         </div>
+         <center>
+          <button class="button" onclick="hideContainer1()">Start Game</button>
+         </center>
+         </div>
+    </div>
+    <div class="container2" style="display: none" id="c2">
 
-    <h1 id="demo" style="position: absolute;top: 50%;left: 35%;z-index: 1;color: white;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"></h1>
-    <!-- <img src="./eat.png"> -->
-    <!-- <div>hello world</div> -->
-    <h2 style="position: absolute;left: 15%;top: 50% ;" id="score"> score:0</h2>
-    <canvas id="canvas" style="background-color: rgb(8, 8, 8);margin-left: 500px;"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"> </script>
-    <video class="input_video" style="display: none;"></video>
-    <canvas class="output_canvas" width="500px" height="420px"  style="display: none;"></canvas>
+      <h1 id="demo" style="position: absolute;top: 50%;left: 35%;z-index: 1;color: white;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"></h1>
+      <!-- <img src="./eat.png"> -->
+      <!-- <div>hello world</div> -->
+      <h2 style="position: absolute;left: 15%;top: 50% ;" id="score"> score:0</h2>
+      <canvas id="canvas" style="background-color: rgb(8, 8, 8);margin-left: 500px;"></canvas>
+      <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"> </script>
+      <video class="input_video" style="display: none;"></video>
+      <canvas class="output_canvas" width="500px" height="420px"  style="display: none;"></canvas>
+    </div>
   </div>
   <!-- <script type="module">
   
