@@ -93,7 +93,8 @@ this.ballupdate=function(){
     if(this.a>375){
         this.a=375
     }
-    this.b=this.b+this.db; 
+    // ..............................this.db
+    // this.b=this.b+this.db; 
  }
  this.balldraw=function(i){
  
@@ -201,8 +202,8 @@ if(j<50){
      y=y+100;
 
 }
-
-var ball=new Circle(200,10,0,10,0);
+// ............................100 line
+var ball=new Circle(200,100,0,10,0);
 
 
 function animate1(){
@@ -210,9 +211,9 @@ function animate1(){
     // requestAnimationFrame(animate1);
 //    console.log("hii")
     for(var i=0;i<600;i++){ 
-        array1[i].update1();
+        // array1[i].update1();
         array1[i].draw();
-        array3[i].update3();
+        // array3[i].update3();
         array3[i].draw();
         ball.balldraw(i);
     }
@@ -257,51 +258,51 @@ function onResults(results) {
     for (const landmarks of results.multiFaceLandmarks) {
         
           //  ...................................Left eye........................................
-          var l=Object.values(FACEMESH_LEFT_EYE)
-          var ll={
-            x:landmarks[Object.values(l)[0][0]].x*(1280),
-            y:landmarks[Object.values(l)[0][1]].y*(720)
-          }
-          var lr={
-            x:landmarks[Object.values(l)[15][0]].x*(1280),
-            y:landmarks[Object.values(l)[15][1]].y*(720)
-          }
-          var lu={
-            x:landmarks[Object.values(l)[12][0]].x*(1280),
-            y:landmarks[Object.values(l)[12][1]].y*(720)
-          }
-          var ld={
-            x:landmarks[Object.values(l)[4][0]].x*(1280),
-            y:landmarks[Object.values(l)[4][1]].y*(720)
-          }
+        //   var l=Object.values(FACEMESH_LEFT_EYE)
+        //   var ll={
+        //     x:landmarks[Object.values(l)[0][0]].x*(1280),
+        //     y:landmarks[Object.values(l)[0][1]].y*(720)
+        //   }
+        //   var lr={
+        //     x:landmarks[Object.values(l)[15][0]].x*(1280),
+        //     y:landmarks[Object.values(l)[15][1]].y*(720)
+        //   }
+        //   var lu={
+        //     x:landmarks[Object.values(l)[12][0]].x*(1280),
+        //     y:landmarks[Object.values(l)[12][1]].y*(720)
+        //   }
+        //   var ld={
+        //     x:landmarks[Object.values(l)[4][0]].x*(1280),
+        //     y:landmarks[Object.values(l)[4][1]].y*(720)
+        //   }
 
-        //    .x..................................right eye...........................
+        // //    .x..................................right eye...........................
 
-          var r=Object.values(FACEMESH_RIGHT_EYE)
-          // console.log("r is",Object.values(r)[0])
-          var rl={
-            x:landmarks[Object.values(r)[0][0]].x*(1280),
-            y:landmarks[Object.values(r)[0][1]].y*(720)
-          }
-          var rr={
-            x:landmarks[Object.values(r)[15][0]].x*(1280),
-            y:landmarks[Object.values(r)[15][1]].y*(720)
-          }
-          var ru={
-            x:landmarks[Object.values(r)[12][0]].x*(1280),
-            y:landmarks[Object.values(r)[12][1]].y*(720)
-          }
-          var rd={
-            x:landmarks[Object.values(r)[4][0]].x*(1280),
-            y:landmarks[Object.values(r)[4][1]].y*(720)
-          }
+        //   var r=Object.values(FACEMESH_RIGHT_EYE)
+        //   // console.log("r is",Object.values(r)[0])
+        //   var rl={
+        //     x:landmarks[Object.values(r)[0][0]].x*(1280),
+        //     y:landmarks[Object.values(r)[0][1]].y*(720)
+        //   }
+        //   var rr={
+        //     x:landmarks[Object.values(r)[15][0]].x*(1280),
+        //     y:landmarks[Object.values(r)[15][1]].y*(720)
+        //   }
+        //   var ru={
+        //     x:landmarks[Object.values(r)[12][0]].x*(1280),
+        //     y:landmarks[Object.values(r)[12][1]].y*(720)
+        //   }
+        //   var rd={
+        //     x:landmarks[Object.values(r)[4][0]].x*(1280),
+        //     y:landmarks[Object.values(r)[4][1]].y*(720)
+        //   }
         //   console.log(ll,lr,lu,ld)
-        var rhd=EuclideanDistance(rl,rr);
-        var rvd=EuclideanDistance(ru,rd)
-        var lhd=EuclideanDistance(ll,lr);
-        var lvd=EuclideanDistance(lu,ld);
-        var rRatio=rhd/rvd;
-        var lRatio=lhd/lvd;
+        // var rhd=EuclideanDistance(rl,rr);
+        // var rvd=EuclideanDistance(ru,rd)
+        // var lhd=EuclideanDistance(ll,lr);
+        // var lvd=EuclideanDistance(lu,ld);
+        // var rRatio=rhd/rvd;
+        // var lRatio=lhd/lvd;
         // console.log(lvd,rvd)
         // var ratio=(rRatio+lRatio)/2;
         ////////////////////one stratagy///////////////////////////////////
@@ -334,26 +335,80 @@ function onResults(results) {
 
     // ...................................third stratagy.....................................
     // console.log(lRatio,rRatio)
-    if(lRatio>10 && rRatio>5.3 && rRatio<10){
-        console.log("left eye is closing")
-        ball.left()
-    }else  if(rRatio>10 && lRatio>5.3 && lRatio<10){
-        console.log("right eye is closing")
-        ball.right()
-    }else{
-        ball.normal()
-    }
+    // if(lRatio>10 && rRatio>5.3 && rRatio<10){
+    //     console.log("left eye is closing")
+    //     ball.left()
+    // }else  if(rRatio>10 && lRatio>5.3 && lRatio<10){
+    //     console.log("right eye is closing")
+    //     ball.right()
+    // }else{
+    //     ball.normal()
+    // }
+//    ........................................4 th stratagy/........................
+// console.log(lRatio,rRatio)
+// if(lRatio>15 && rRatio>5.3 ){
+//     console.log("left eye is closing")
+//     ball.left()
+// }else  if(rRatio>15 && lRatio>5.3 ){
+//     console.log("right eye is closing")
+//     ball.right()
+// }else{
+//     ball.normal()
+// }
+
+//  .........................................changing complete  strtagy with iris ...................................
+var l=Object.values(FACEMESH_LEFT_IRIS)
+// console.log(FACEMESH_LEFT_IRIS)
+// var ll={
+//   x:landmarks[Object.values(l)[0][0]].x*(1280),
+//   y:landmarks[Object.values(l)[0][1]].y*(720)
+// }
+// var lr={
+//   x:landmarks[Object.values(l)[15][0]].x*(1280),
+//   y:landmarks[Object.values(l)[15][1]].y*(720)
+// }
+// var lu={
+//   x:landmarks[Object.values(l)[12][0]].x*(1280),
+//   y:landmarks[Object.values(l)[12][1]].y*(720)
+// }
+// var ld={
+//   x:landmarks[Object.values(l)[4][0]].x*(1280),
+//   y:landmarks[Object.values(l)[4][1]].y*(720)
+// }
+
+//    .x..................................right eye...........................
+
+var r=Object.values(FACEMESH_RIGHT_IRIS)
+// console.log("r is",Object.values(r)[0])
+// var rl={
+//   x:landmarks[Object.values(r)[0][0]].x*(1280),
+//   y:landmarks[Object.values(r)[0][1]].y*(720)
+// }
+// var rr={
+//   x:landmarks[Object.values(r)[15][0]].x*(1280),
+//   y:landmarks[Object.values(r)[15][1]].y*(720)
+// }
+// var ru={
+//   x:landmarks[Object.values(r)[12][0]].x*(1280),
+//   y:landmarks[Object.values(r)[12][1]].y*(720)
+// }
+// var rd={
+//   x:landmarks[Object.values(r)[4][0]].x*(1280),
+//   y:landmarks[Object.values(r)[4][1]].y*(720)
+// }
+
+
     //     // console.log("hiii andii")
     //   drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION,
     //                  {color: '#C0C0C070', lineWidth: 1});
-    //   drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYE, {color: '#FF3030'});
-    //   drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYEBROW, {color: '#FF3030'});
-    //   drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_IRIS, {color: '#FF3030'});
-    //   drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_EYE, {color: '#30FF30'});
-    //   drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_EYEBROW, {color: '#30FF30'});
-    //   drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_IRIS, {color: '#30FF30'});
-    //   drawConnectors(canvasCtx, landmarks, FACEMESH_FACE_OVAL, {color: '#E0E0E0'});
-    //   drawConnectors(canvasCtx, landmarks, FACEMESH_LIPS, {color: '#E0E0E0'});
+      drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYE, {color: '#FF3030'});
+      drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYEBROW, {color: '#FF3030'});
+      drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_IRIS, {color: '#FF3030'});
+      drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_EYE, {color: '#30FF30'});
+      drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_EYEBROW, {color: '#30FF30'});
+      drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_IRIS, {color: '#30FF30'});
+      drawConnectors(canvasCtx, landmarks, FACEMESH_FACE_OVAL, {color: '#E0E0E0'});
+      drawConnectors(canvasCtx, landmarks, FACEMESH_LIPS, {color: '#E0E0E0'});
     }
   }
 //   canvasCtx.restore();
@@ -381,11 +436,12 @@ const camera = new Camera(videoElement, {
 
 function hideContainer1(){
     console.log("clickign")
-    document.getElementById("c1").style.display="none"
-    document.getElementById("c2").style.display="block"
+    // document.getElementById("c1").style.display="none"
+    // document.getElementById("c2").style.display="block"
     var req;
 camera.start().then(()=>{
  req=setInterval(animate1,100)
 });
 
 }
+hideContainer1()

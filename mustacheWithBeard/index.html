@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container">
+    <video class="input_video"></video>
+    <canvas class="output_canvas" width="1280px" height="720px"  style="width: 100%;height:100%" class="c"></canvas>
+    <img src="./m7.png" style="display: none;" id="image" height="30">
+    <img src="./b2.png" style="display: none;" id="image1" height="30">
+  </div>
+
+  <script type="module">
+    const videoElement = document.getElementsByClassName('input_video')[0];
+    const canvasElement = document.getElementsByClassName('output_canvas')[0];
+    const canvasCtx = canvasElement.getContext('2d');
+    // 61,46
+    function EuclideanDistance(p1,p2){
+    var x1=p1.x,y1=p1.y;
+    var x2=p2.x,y2=p2.y;
+    var dist=Math.sqrt((x2-x1)**2+(y2-y1)**2)
+    return dist;
+}   
+    function onResults(results) {
+          
+      canvasCtx.save();
+      canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+      canvasCtx.drawImage(
+          results.image, 0, 0, canvasElement.width, canvasElement.height);
+          
+      if (results.multiFaceLandmarks) {
+        for (const landmarks of results.multiFaceLandmarks) {
+          var l=Object.values(FACEMESH_LIPS)
+          // console.log(l,"lips cord")
+          var ll={
+            x:landmarks[Object.values(l)[0][0]].x*(1280),
+            y:landmarks[Object.values(l)[0][1]].y*(720)
+          }
+          // 0--start
+          // 15 -- middle upper
+            // 19--right
+            // 25---down upper middle
+            // 5--down lower middle
+          var ll1={
+            x:landmarks[Object.values(l)[19][0]].x*(1280),
+            y:landmarks[Object.values(l)[19][1]].y*(720)
+          }
+      // ............................m8...................
+        //   var imgX=landmarks[Object.values(l)[0][0]].x*(1280)-80;
+        //   var imgY=landmarks[Object.values(l)[15][1]].y*(720)-75
+        //   var img=document.getElementById("image")
+        //  var d= EuclideanDistance(ll,ll1)
+        //  canvasCtx.drawImage(img, imgX, imgY,d+170,100);
+// ..........................m7........................
+var imgX=landmarks[Object.values(l)[0][0]].x*(1280)-70;
+          var imgY=landmarks[Object.values(l)[15][1]].y*(720)-50
+
+          var beardy=landmarks[Object.values(l)[5][0]].y*(720);
+
+
+          var img=document.getElementById("image")
+          var img1=document.getElementById("image1")
+         var d= EuclideanDistance(ll,ll1)
+         canvasCtx.drawImage(img, imgX, imgY,d+140,80);
+         canvasCtx.drawImage(img1, imgX-170, beardy-30,d+500,150);
+          // console.log("distance is",d)
+          // canvasCtx.beginPath();
+          // canvasCtx.moveTo(ll.x, ll.y);
+          // canvasCtx.lineTo(ll1.x, ll1.y);
+          // canvasCtx.stroke();
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION,
+        //                  {color: '#C0C0C070', lineWidth: 1});
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYE, {color: '#FF3030'});
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYEBROW, {color: '#FF3030'});
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_IRIS, {color: '#FF3030'});
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_EYE, {color: '#30FF30'});
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_EYEBROW, {color: '#30FF30'});
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_IRIS, {color: '#30FF30'});
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_FACE_OVAL, {color: '#E0E0E0'});
+          // drawConnectors(canvasCtx, landmarks, FACEMESH_LIPS, {color: '#E0E0E0'});
+        }
+      }
+      canvasCtx.restore();
+    }
+    
+    const faceMesh = new FaceMesh({locateFile: (file) => {
+      return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
+    }});
+    faceMesh.setOptions({
+      maxNumFaces: 1,
+      refineLandmarks: true,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5
+    });
+    faceMesh.onResults(onResults);
+    
+    const camera = new Camera(videoElement, {
+      onFrame: async () => {
+        await faceMesh.send({image: videoElement});
+      },
+      width: 1280,
+      height: 720
+    });
+    camera.start();
+    </script>
+</body>
+</html>
