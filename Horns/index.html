@@ -1,0 +1,86 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <video class="input_video" style="display: none;"></video>
+    <canvas class="output_canvas" width="1280px" height="720px" style="width: 100%;height: 100%;"></canvas>
+    <img src="./left-horn.png" style="display: none;" id="left">
+    <img src="./right-horn.png" style="display: none;" id="right">
+  </div>
+  <script type="module">
+    const videoElement = document.getElementsByClassName('input_video')[0];
+    const canvasElement = document.getElementsByClassName('output_canvas')[0];
+    const canvasCtx = canvasElement.getContext('2d');
+    var leftHorn=document.getElementById("left");
+
+    var  rightHorn=document.getElementById("right");
+    function onResults(results) {
+      canvasCtx.save();
+      canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+      canvasCtx.filter = "grayscale(1)";
+      canvasCtx.drawImage(
+          results.image, 0, 0, canvasElement.width, canvasElement.height);
+      if (results.multiFaceLandmarks) {
+        for (const landmarks of results.multiFaceLandmarks) {
+            // console.log(FACEMESH_LEFT_EYEBROW)
+          var l=Object.values(FACEMESH_RIGHT_EYEBROW)
+          var ll={
+            x:landmarks[Object.values(l)[0][0]].x*(1280),
+            y:landmarks[Object.values(l)[0][1]].y*(720)
+          }
+      canvasCtx.filter = "none";
+          canvasCtx.drawImage(leftHorn,ll.x-50,ll.y-150,100,100)
+
+          var l1=Object.values(FACEMESH_LEFT_EYEBROW)
+          var ll1={
+            x:landmarks[Object.values(l1)[0][0]].x*(1280),
+            y:landmarks[Object.values(l1)[0][1]].y*(720)
+          }
+          canvasCtx.drawImage(rightHorn,ll1.x-50,ll1.y-150,100,100)
+
+        //     canvasCtx.beginPath();
+        //   canvasCtx.arc(ll1.x, ll1.y-100, 50, 0, 2 * Math.PI);
+        //   canvasCtx.stroke();
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION,
+        //                  {color: '#C0C0C070', lineWidth: 1});
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYE, {color: '#FF3030'});
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYEBROW, {color: '#FF3030'});
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_IRIS, {color: '#FF3030'});
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_EYE, {color: '#30FF30'});
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_EYEBROW, {color: '#30FF30'});
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_IRIS, {color: '#30FF30'});
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_FACE_OVAL, {color: '#E0E0E0'});
+        //   drawConnectors(canvasCtx, landmarks, FACEMESH_LIPS, {color: '#E0E0E0'});
+        }
+      }
+      canvasCtx.restore();
+    }
+    
+    const faceMesh = new FaceMesh({locateFile: (file) => {
+      return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
+    }});
+    faceMesh.setOptions({
+      maxNumFaces: 1,
+      refineLandmarks: true,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5
+    });
+    faceMesh.onResults(onResults);
+    
+    const camera = new Camera(videoElement, {
+      onFrame: async () => {
+        await faceMesh.send({image: videoElement});
+      },
+      width: 1280,
+      height: 720
+    });
+    camera.start();
+    </script>
+</body>
+</html>
