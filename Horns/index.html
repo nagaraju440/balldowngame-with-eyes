@@ -35,14 +35,14 @@
             y:landmarks[Object.values(l)[0][1]].y*(720)
           }
       canvasCtx.filter = "none";
-          canvasCtx.drawImage(leftHorn,ll.x-50,ll.y-100,100,100)
+          canvasCtx.drawImage(leftHorn,ll.x-50,ll.y-120,100,100)
 
           var l1=Object.values(FACEMESH_LEFT_EYEBROW)
           var ll1={
             x:landmarks[Object.values(l1)[0][0]].x*(1280),
             y:landmarks[Object.values(l1)[0][1]].y*(720)
           }
-          canvasCtx.drawImage(rightHorn,ll1.x-50,ll1.y-100,100,100)
+          canvasCtx.drawImage(rightHorn,ll1.x-50,ll1.y-120,100,100)
 
         //     canvasCtx.beginPath();
         //   canvasCtx.arc(ll1.x, ll1.y-100, 50, 0, 2 * Math.PI);
